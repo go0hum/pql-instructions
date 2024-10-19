@@ -48,11 +48,6 @@ export const FormTeam: React.FC = () => {
         setValue("name", "Harrys");
       }, [setValue]);
 
-
-    const handleClick = (value: number) => {
-        console.log("Valor de la celda clickeado:", value);
-    };
-
     const columnHelper = createColumnHelper<Player>();
 
     const columns = [
@@ -89,7 +84,7 @@ export const FormTeam: React.FC = () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data) // Asegúrate de que 'data' sea un objeto
+        body: JSON.stringify(data) 
     })
     .then((response) => response.json())
     .then((result) => {

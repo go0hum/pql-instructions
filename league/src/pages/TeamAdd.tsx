@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FormTeam } from "../components/FormTeam";
 
-export const PlayerManagementAdd = () => {      
+export const TeamAdd = () => {      
     return (
         <Container>
             <h1>Agregar Team</h1>
