@@ -4,6 +4,26 @@
       "id": 1,
       "name": "Gryffindor",
       "slogan": "Where dwell the brave at heart"
+    },
+    {
+      "id": 2,
+      "name": "Harrys3",
+      "slogan": ""
+    },
+    {
+      "id": 3,
+      "name": "Harrys",
+      "slogan": ""
+    },
+    {
+      "id": 4,
+      "name": "Harrys 6",
+      "slogan": ""
+    },
+    {
+      "id": 5,
+      "name": "Harrys 10",
+      "slogan": ""
     }
   ],
   "players": [
@@ -33,49 +53,49 @@
       "name": "Draco Malfoy",
       "age": 11,
       "position": "Chaser",
-      "team_id": null
+      "team_id": 2
     },
     {
       "id": 5,
       "name": "Cedric Diggory",
       "age": 17,
       "position": "Seeker",
-      "team_id": null
+      "team_id": 3
     },
     {
       "id": 6,
       "name": "Cho Chang",
       "age": 16,
       "position": "Chaser",
-      "team_id": null
+      "team_id": 3
     },
     {
       "id": 7,
       "name": "Luna Lovegood",
       "age": 14,
       "position": "Chaser",
-      "team_id": null
+      "team_id": 4
     },
     {
       "id": 8,
       "name": "Ginny Weasley",
       "age": 14,
       "position": "Chaser",
-      "team_id": null
+      "team_id": 4
     },
     {
       "id": 9,
       "name": "Neville Longbottom",
       "age": 11,
       "position": "Keeper",
-      "team_id": null
+      "team_id": 4
     },
     {
       "id": 10,
       "name": "Fred Weasley",
       "age": 13,
       "position": "Beater",
-      "team_id": null
+      "team_id": 5
     },
     {
       "id": 11,
