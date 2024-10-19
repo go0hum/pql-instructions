@@ -71,7 +71,7 @@ const Links = [
 const Container = styled.div`
   color: #202020;
   position:sticky;
-  background: #fff;
+  background: #EFEFF6;
   padding-top: 20px;
   .close {
     position: absolute;
@@ -93,12 +93,15 @@ const Container = styled.div`
   }
   .Logo {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding-bottom: ${vars.lgSpacing};
+    padding: 1rem;
     .imgOut {
         display: flex;
         img {
+            border-radius: 50%; 
             max-width: 100%;
             height: auto;
         }
@@ -124,9 +127,8 @@ const Container = styled.div`
         text-decoration: none;
         align-items: center;
         display: flex;
-        padding:20px 0;
         .linkicon {
-            padding: 20px 20px;
+            padding: .2rem 1rem;
             display: flex;
             svg {
                 font-size: 22px;

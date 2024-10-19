@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import {savePlayer} from "../api/player";
 
 interface Player {
     id: number;
@@ -53,23 +54,7 @@ export const FormPlayer: React.FC = () => {
       }, [setValue]);
 
   const onSubmit = (data: Player) => {
-
-    data.team_id = null;
-    
-    fetch('http://localhost:3001/api/players', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data) 
-    })
-    .then((response) => response.json())
-    .then((result) => {
-        console.log('Success:', result);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+    savePlayer(data);
     return navigate("/player-management");
   };
 
@@ -101,7 +86,6 @@ export const FormPlayer: React.FC = () => {
             ))}
         </select>
         {errors.position && <p>{errors.position.message}</p>}
-
             <input type="submit" />
         </form>
     </Container>
@@ -115,7 +99,6 @@ form {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 label {

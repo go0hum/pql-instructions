@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link, useNavigate } from "react-router-dom";
+import {deletePlayer} from "../api/player";
 
 interface IFormInput {
     players: Player[];
@@ -65,25 +66,16 @@ export const PlayerManagement: React.FC = () => {
   
 
   const onSubmit = async (data: FormData) => {
-    const deleteRequests = data.players.map(id => 
-        fetch(`http://localhost:3001/api/players/${parseInt(id, 10)}`, {
-            method: 'DELETE'
-        })
-    );
-
-    try {
-        await Promise.all(deleteRequests);
-        console.log("Registros eliminados con éxito");
-    } catch (error) {
-        console.error("Error al eliminar registros:", error);
-    }
+    deletePlayer(data);
     return navigate("/player-management");
   };
 
   return (
     <Container>
         <h1>Players</h1>
-        <Link to="/player-management/add">Agregar Player</Link>
+        <section className="right">
+            <Link to="/player-management/add">Agregar Player</Link>    
+        </section>
         <form onSubmit={handleSubmit(onSubmit)}>
         <TablePlayers columns={columns} />
         {errors.players && <p>{errors.players.message}</p>}
@@ -101,7 +93,12 @@ form {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
 }
 
 label {
@@ -135,6 +132,7 @@ a {
   color: white;
   cursor: pointer;
   border: none;
+  text-decoration: none;
 }
 
 a:hover {

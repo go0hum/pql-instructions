@@ -3,6 +3,7 @@ import { TableTeam } from "../components/TableTeam";
 import { useState } from "react";
 import Modal from "../components/Modal";
 import { Link } from "react-router-dom";
+import {getTeam} from "../api/team";
 
 export const MagicalTeam = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -14,20 +15,15 @@ export const MagicalTeam = () => {
     
     const handleClick = (value: number) => {
         toggleModal();
-        const url = `http://localhost:3001/api/players?team_id=${value}`;
-        fetch(url)
-        .then((res) => res.json())
-        .then((players) => {
-            setPlayers(players);
-        }).catch((error) => {
-            console.error("Error fetching teams:", error);
-        });
+        getTeam(value);
     };
     
   return (<Container>
         <section>
             <h1>Magical Team</h1>
-            <div><Link to="/magical-team/add">Add Team</Link></div>
+            <div className="right">
+                <Link to="/magical-team/add">Add Team</Link>
+            </div>
             <TableTeam handleClick={handleClick} />
         </section>
         <Modal open={showModal} onClose={toggleModal}>
@@ -43,4 +39,22 @@ export const MagicalTeam = () => {
 }
 const Container =styled.div`
     padding: 2rem 3rem;
+    .right {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+    }
+    a {
+        height: 35px;
+        padding: 5px 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 20px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+    }
 `

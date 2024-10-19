@@ -23,7 +23,6 @@ function App() {
 const Container = styled.div`
   display: grid;
   grid-template-columns:90px auto;
-  background: #EDF3FB;
   transition: all 0.3s;
   &.active {
     grid-template-columns: 300px auto;

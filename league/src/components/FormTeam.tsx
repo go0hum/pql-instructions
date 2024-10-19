@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
+import {saveTeam} from "../api/team";
 
 interface IFormInput {
     name: string;
@@ -77,22 +78,7 @@ export const FormTeam: React.FC = () => {
   
 
   const onSubmit = (data: Team) => {
-    data.players = data.players.map(player => parseInt(player, 10));
-    
-    fetch('http://localhost:3001/api/teams', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data) 
-    })
-    .then((response) => response.json())
-    .then((result) => {
-        console.log('Success:', result);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+    saveTeam(data);
     return navigate("/magical-team");
   };
 
@@ -122,7 +108,6 @@ form {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
