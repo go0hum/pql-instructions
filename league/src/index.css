@@ -1,5 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+/************************ GRAL *****************************/
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: #D7B972;
+}
+
+
+html,
+body {
+	height: 100%;
+	background: #FBFAF8;
+}
+
+/************************ Tipografia *****************************/
+
+.roboto-thin {
+	font-family: "Roboto", sans-serif;
+	font-weight: 100;
+	font-style: normal;
+}
+
+.roboto-light {
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-style: normal;
+}
+
+.roboto-regular {
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.roboto-medium {
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+	font-style: normal;
+}
+
+.roboto-bold {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-style: normal;
+}
+
+.roboto-black {
+	font-family: "Roboto", sans-serif;
+	font-weight: 900;
+	font-style: normal;
+}
+
+.roboto-thin-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 100;
+	font-style: italic;
+}
+
+.roboto-light-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-style: italic;
+}
+
+.roboto-regular-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	font-style: italic;
+}
+
+.roboto-medium-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+	font-style: italic;
+}
+
+.roboto-bold-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-style: italic;
+}
+
+.roboto-black-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 900;
+	font-style: italic;
+}
+
+/************************ Containers *****************************/
+
+.container {
+	padding: 2rem 3rem;
+}
+
+.right {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1rem;
+}
+
+
+/************************ Buttons and Inputs (Forms) *****************************/
+
+.input {
+	height: 35px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+.button {
+	height: 35px;
+	display: flex;
+	font-size: 16px;
+	border: 1px solid #D7B972;
+	background-color: #1E2328;
+	color: #D7B972;
+	cursor: pointer;
+	text-decoration: none;
+	align-items: center;
+	padding: 1rem 1.5rem;
+}
+
+.button:hover {
+	background-color: #5c656d;
+}
+
+input[type="submit"] {
+	border-radius: 0px;
+	background-color: transparent;
+	color: #D7B972;
+	cursor: pointer;
+	border: none;
+}
+
+input[type="submit"]:hover {
+	background-color: #D7B972;
+	color: #fff;
+}
+
+/************************ Search *****************************/
+
+.search-bar {
+	margin: .5rem 0;
+}
+
+/************************ Listado *****************************/
+
+.listado {
+	list-style-type: none;
+}
+
+.listado li {
+	padding: .4rem 0;
 }

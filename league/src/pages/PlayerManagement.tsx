@@ -1,158 +1,108 @@
-import React from "react";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { TablePlayers } from "../components/TablePlayers";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { createColumnHelper } from "@tanstack/react-table";
-import { Link, useNavigate } from "react-router-dom";
-import {deletePlayer} from "../api/player";
-
-interface IFormInput {
-    players: Player[];
-}
-
-interface Player {
-    id: number;
-};
-
-const schema = yup.object().shape({
-    players: yup.array()
-    .of(yup.string()) 
-    .required("Players is required")
-    .min(1, "Al menos debe tener un Jugador")
-    .typeError("Debes seleccionar un Jugador"),
-});
+import React, { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { TablePlayers } from '../components/TablePlayers/TablePlayers';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Link, useNavigate } from 'react-router-dom';
+import { deletePlayer } from '../api/player';
+import { ValidatePlayers } from '../validate/ValidatePlayers';
+import { Player } from '../interfaces/Player';
+import { createColumnHelper } from '@tanstack/react-table';
+import { PlayersFormInput } from '../interfaces/PlayersFormInput';
 
 export const PlayerManagement: React.FC = () => {
     let navigate = useNavigate();
+    let childRef = useRef<any>(null);
+    const [searchValue, setSearchValue] = useState('');
+    const [inputSearchValue, setInputSearchValue] = useState('');
+
+    const submitSearchForm = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setSearchValue(inputSearchValue);
+    };
+
     const {
-        setValue,
         register,
         handleSubmit,
         formState: { errors },
-      } = useForm<IFormInput>({ resolver: yupResolver(schema) });
+        setError,
+        reset,
+    } = useForm<PlayersFormInput>({ resolver: yupResolver(ValidatePlayers) });
 
     const columnHelper = createColumnHelper<Player>();
 
-    const columns = [
-        columnHelper.accessor("id", {
-          header: () => "ID",
-          cell: (info) => info.getValue(),
-        }),
-        columnHelper.accessor("name", {
-          header: () => "Name",
-          cell: (info) => info.getValue(),
-        }),
-        columnHelper.accessor("age", {
-          header: () => "Age",
-          cell: (info) => info.getValue(),
-        }),
-        columnHelper.accessor("position", {
-            header: () => "Position",
+    const PlayersColumns = [
+        columnHelper.accessor('id', {
+            header: () => 'ID',
             cell: (info) => info.getValue(),
-          }),
-        columnHelper.accessor("id", {
-            header: () => "",
+        }),
+        columnHelper.accessor('name', {
+            header: () => 'Name',
+            cell: (info) => info.getValue(),
+        }),
+        columnHelper.accessor('age', {
+            header: () => 'Age',
+            cell: (info) => info.getValue(),
+        }),
+        columnHelper.accessor('position', {
+            header: () => 'Position',
+            cell: (info) => info.getValue(),
+        }),
+        columnHelper.accessor('id', {
+            header: () => '',
             cell: (info) => (
                 <input
                     type="checkbox"
                     value={parseInt(info.getValue(), 10)}
-                    {...register("players")}
+                    {...register('players')}
                 />
             ),
         }),
     ];
-  
 
-  const onSubmit = async (data: FormData) => {
-    deletePlayer(data);
-    return navigate("/player-management");
-  };
+    const onSubmit = async (data: PlayersFormInput) => {
+        const response = await deletePlayer(data);
+        if (response.error) {
+            setError('fetchError', {
+                type: 'manual',
+                message: response.message || 'Failed to submit the form',
+            });
+        } else {
+            if (childRef.current) {
+                childRef.current.reloadData();
+            }
+        }
+        reset();
+    };
 
-  return (
-    <Container>
-        <h1>Players</h1>
-        <section className="right">
-            <Link to="/player-management/add">Agregar Player</Link>    
+    return (
+        <section className="container">
+            <h1 className="roboto-bold">Players sin asignar</h1>
+            <div className="search-bar">
+                <form onSubmit={submitSearchForm}>
+                    <input
+                        className="input"
+                        type="text"
+                        placeholder="Search..."
+                        value={inputSearchValue}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputSearchValue(e.target.value)}
+                    />
+                </form>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="form">
+                <section className="right">
+                    <Link to="/player-management/add" className="button">
+                        Agregar Player
+                    </Link>
+                    <input type="submit" value="Eliminar" className="input" />
+                </section>
+                {errors.players && <p>{errors.players.message}</p>}
+                {errors.fetchError && <p>{errors.fetchError.message}</p>}
+                <TablePlayers
+                    columns={PlayersColumns}
+                    searchValue={searchValue}
+                    ref={childRef}
+                />
+            </form>
         </section>
-        <form onSubmit={handleSubmit(onSubmit)}>
-        <TablePlayers columns={columns} />
-        {errors.players && <p>{errors.players.message}</p>}
-        <input type="submit" value="Eliminar" />
-        </form>
-    </Container>
-  );
+    );
 };
-
-const Container = styled.div`
-padding: 2rem 3rem;
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.right {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem;
-}
-
-label {
-  font-size: 16px;
-  color: #333;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-
-.input-field input {
-  margin-top: 5px;
-}
-
-input {
-  height: 35px;
-  padding: 5px 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-a {
-  height: 35px;
-  padding: 5px 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-top: 20px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-}
-
-a:hover {
-  background-color: #0056b3;
-}
-
-input[type="submit"] {
-  margin-top: 20px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  border: none;
-}
-
-input[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-p {
-  color: red;
-  margin: 5px 0 0 0;
-}
-`

@@ -1,14 +1,11 @@
-import styled from "styled-components";
-import { FormTeam } from "../components/FormTeam";
+import React from "react";
+import { FormTeam } from '../components/FormTeam/FormTeam';
 
-export const TeamAdd = () => {      
+export const TeamAdd: React.FC  = () => {
     return (
-        <Container>
-            <h1>Agregar Team</h1>
+        <section className="container">
+            <h1 className="roboto-bold">Agregar Team</h1>
             <FormTeam />
-        </Container>
+        </section>
     );
-}
-const Container =styled.div`
-    padding: 2rem 3rem;
-`
+};

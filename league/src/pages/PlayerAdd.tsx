@@ -1,14 +1,10 @@
-import styled from "styled-components";
-import { FormPlayer } from "../components/FormPlayer";
+import { FormPlayer } from "../components/FormPlayer/FormPlayer";
 
-export const PlayerAdd = () => {      
+export const PlayerAdd: React.FC = () => {      
     return (
-        <Container>
-            <h1>Agregar Player</h1>
+        <section className="container">
+            <h1 className="roboto-bold">Agregar Player</h1>
             <FormPlayer />
-        </Container>
+        </section>
     );
 }
-const Container =styled.div`
-    padding: 2rem 3rem;
-`

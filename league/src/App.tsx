@@ -1,7 +1,7 @@
 import {RoutesLeague} from './routers/RoutesLeague';
 import './App.css'
 import { BrowserRouter } from 'react-router-dom';
-import { SideBar } from './components/SideBar';
+import { SideBar } from './components/SideBar/SideBar';
 import { useState } from 'react';
 import styled from 'styled-components';
 
